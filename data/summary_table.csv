@@ -1,0 +1,51 @@
+Region,Locality,ANP_ID,ANP,Protection_level,Area,total_rev,predicted_revenues
+Gulf of Mexico,TUXPAN,37,Sistema Arrecifal Lobos-Tuxpan,Amortiguamiento,305.5,252900,457443
+Gulf of Mexico,TUXPAN,,Sin Proteccion,Sin Proteccion,,252900,453487
+Gulf of Mexico,VERACRUZ,36,Sistema Arrecifal Veracruzano,Amortiguamiento,654.2,672765,758047
+Gulf of Mexico,VERACRUZ,36,Sistema Arrecifal Veracruzano,Pesca Prohibida,654.2,672765,759183
+Gulf of Mexico,VERACRUZ,,Sin Proteccion,Sin Proteccion,,672765,754424
+Mexican Pacific,ACAPULCO,,Sin Proteccion,Sin Proteccion,,928800,1437375
+Mexican Pacific,HUATULCO,31,Huatulco,Amortiguamiento,55.3,630440,1810252
+Mexican Pacific,HUATULCO,31,Huatulco,Pesca Prohibida,55.3,630440,1802934
+Mexican Pacific,HUATULCO,,Sin Proteccion,Sin Proteccion,,630440,1808948
+Mexican Pacific,IXTAPA,,Sin Proteccion,Sin Proteccion,,554537,2162225
+Mexican Pacific,MANZANILLO,,Sin Proteccion,Sin Proteccion,,989940,1441237
+Mexican Pacific,PUERTO ESCONDIDO,,Sin Proteccion,Sin Proteccion,,205270,718398
+Northwest Mexico,CABO PULMO,10,Cabo Pulmo,Pesca Prohibida,71.2,2595683,4614067
+Northwest Mexico,ENSENADA,2,Islas del Pacifico de la Peninsula de Baja California,Amortiguamiento,12244.1,200595,1703093
+Northwest Mexico,ENSENADA,13,Isla San Pedro Mártir,Amortiguamiento,298.9,200595,1703371
+Northwest Mexico,ENSENADA,21,Isla Guadalupe,Amortiguamiento,4528.5,200595,1705703
+Northwest Mexico,ENSENADA,,Sin Proteccion,Sin Proteccion,,200595,1702688
+Northwest Mexico,GUAYMAS,,Sin Proteccion,Sin Proteccion,,1477800,1706824
+Northwest Mexico,HERMOSILLO,,Sin Proteccion,Sin Proteccion,,20304,568253
+Northwest Mexico,LA PAZ,8,ZoSin Proteccion mariSin Proteccion del Archipiélago de Espíritu Santo,Amortiguamiento,489.2,5451879,6898239
+Northwest Mexico,LA PAZ,8,ZoSin Proteccion mariSin Proteccion del Archipiélago de Espíritu Santo,Pesca Prohibida,489.2,5451879,6958382
+Northwest Mexico,LA PAZ,9,Balandra,Amortiguamiento,13.4,5451879,6810153
+Northwest Mexico,LA PAZ,9,Balandra,Pesca Prohibida,13.4,5451879,6873442
+Northwest Mexico,LA PAZ,,Sin Proteccion,Sin Proteccion,,5451879,6835183
+Northwest Mexico,LORETO,6,El Vizcaíno,Pesca Prohibida,16376.2,729620,1702538
+Northwest Mexico,LORETO,7,Bahía de Loreto,Amortiguamiento,1860.1,729620,1706036
+Northwest Mexico,LORETO,7,Bahía de Loreto,Pesca Prohibida,1860.1,729620,1707178
+Northwest Mexico,LORETO,,Sin Proteccion,Sin Proteccion,,729620,1703598
+Northwest Mexico,LOS CABOS,8,ZoSin Proteccion mariSin Proteccion del Archipiélago de Espíritu Santo,Pesca Prohibida,489.2,11500149,16169397
+Northwest Mexico,LOS CABOS,11,Cabo San Lucas,Amortiguamiento,40,11428903,16169397
+Northwest Mexico,LOS CABOS,,Sin Proteccion,Sin Proteccion,,11372169,16169397
+Northwest Mexico,PUERTO VALLARTA,24,Islas Marías,Amortiguamiento,6125.1,4219861,10215229
+Northwest Mexico,PUERTO VALLARTA,25,Islas Marietas,Amortiguamiento,13.4,4219861,10281849
+Northwest Mexico,PUERTO VALLARTA,,Sin Proteccion,Sin Proteccion,,4219861,10268005
+Northwest Mexico,TIJUANA,2,Islas del Pacifico de la Peninsula de Baja California,Amortiguamiento,12244.1,54672,1136477
+Yucatan Peninsula,CANCUN,29,Caribe Mexicano,Amortiguamiento,57482.4,10102887,12979200
+Yucatan Peninsula,CANCUN,34,"Costa Occ. de I. Mujeres, Pta. Cancún y Pta. Nizuc",Amortiguamiento,87.6,10111007,12979200
+Yucatan Peninsula,CANCUN,34,"Costa Occ. de I. Mujeres, Pta. Cancún y Pta. Nizuc",Pesca Prohibida,87.6,10120577,12979200
+Yucatan Peninsula,CANCUN,,Sin Proteccion,Sin Proteccion,,10100903,12979200
+Yucatan Peninsula,COZUMEL,17,Arrecifes de Cozumel,Amortiguamiento,482.1,31960639,34521323
+Yucatan Peninsula,COZUMEL,17,Arrecifes de Cozumel,Pesca Prohibida,482.1,32341441,34521323
+Yucatan Peninsula,COZUMEL,29,Caribe Mexicano,Amortiguamiento,57482.4,32283097,34521323
+Yucatan Peninsula,ISLA MUJERES,29,Caribe Mexicano,Amortiguamiento,57482.4,1462064,10874203
+Yucatan Peninsula,ISLA MUJERES,34,"Costa Occ. de I. Mujeres, Pta. Cancún y Pta. Nizuc",Pesca Prohibida,87.6,1462064,10890504
+Yucatan Peninsula,ISLA MUJERES,,Sin Proteccion,Sin Proteccion,,1462064,10882300
+Yucatan Peninsula,MERIDA,15,Arrecife Alacranes,Pesca Prohibida,3337.5,502572,3881909
+Yucatan Peninsula,MERIDA,,Sin Proteccion,Sin Proteccion,,502572,3880521
+Yucatan Peninsula,PLAYA DEL CARMEN,29,Caribe Mexicano,Amortiguamiento,57482.4,24390232,28181196
+Yucatan Peninsula,PLAYA DEL CARMEN,,Sin Proteccion,Sin Proteccion,,24390232,28117128
+Yucatan Peninsula,PUERTO MORELOS,16,Arrecife de Puerto Morelos,Amortiguamiento,90.5,784410,7761042

@@ -1,0 +1,81 @@
+"Region","Locality","ANP_ID","ANP","Protection_level","Area_dbl","n_sitios","n_operators","mean_rev","Predicted_increase"
+"Gulf of Mexico","TUXPAN",37,"Sistema Arrecifal Lobos-Tuxpan","Amortiguamiento",305.4,4,3,84300,68180.9826807549
+"Gulf of Mexico","TUXPAN",37,"Sistema Arrecifal Lobos-Tuxpan","Amortiguamiento",0.1,4,3,84300,68180.9826807549
+"Gulf of Mexico","TUXPAN",NA,NA,"Sin Proteccion",NA,2,3,84300,66862.4645702494
+"Gulf of Mexico","VERACRUZ",36,"Sistema Arrecifal Veracruzano","Amortiguamiento",18.7,77,5,134552.9375,17056.543463148
+"Gulf of Mexico","VERACRUZ",36,"Sistema Arrecifal Veracruzano","Amortiguamiento",635.5,77,5,134552.9375,17056.543463148
+"Gulf of Mexico","VERACRUZ",36,"Sistema Arrecifal Veracruzano","Pesca Prohibida",18.7,7,5,134552.9375,17283.6566305078
+"Gulf of Mexico","VERACRUZ",36,"Sistema Arrecifal Veracruzano","Pesca Prohibida",635.5,7,5,134552.9375,17283.6566305078
+"Gulf of Mexico","VERACRUZ",NA,NA,"Sin Proteccion",NA,2,5,134552.9375,16331.944310143
+"Mexican Pacific","ACAPULCO",NA,NA,"Sin Proteccion",NA,23,4,232200,127143.635996573
+"Mexican Pacific","HUATULCO",31,"Huatulco","Amortiguamiento",52.3,11,5,126087.92,235962.422198876
+"Mexican Pacific","HUATULCO",31,"Huatulco","Amortiguamiento",0,11,5,126087.92,235962.422198876
+"Mexican Pacific","HUATULCO",31,"Huatulco","Amortiguamiento",3,11,5,126087.92,235962.422198876
+"Mexican Pacific","HUATULCO",31,"Huatulco","Pesca Prohibida",3,1,5,126087.92,234498.804009224
+"Mexican Pacific","HUATULCO",31,"Huatulco","Pesca Prohibida",52.3,1,5,126087.92,234498.804009224
+"Mexican Pacific","HUATULCO",31,"Huatulco","Pesca Prohibida",0,1,5,126087.92,234498.804009224
+"Mexican Pacific","HUATULCO",NA,NA,"Sin Proteccion",NA,15,5,126087.92,235701.662636352
+"Mexican Pacific","IXTAPA",NA,NA,"Sin Proteccion",NA,20,6,92422.7777777778,267948.048529141
+"Mexican Pacific","MANZANILLO",NA,NA,"Sin Proteccion",NA,16,4,247485,112824.141249117
+"Mexican Pacific","PUERTO ESCONDIDO",NA,NA,"Sin Proteccion",NA,3,2,102635,256563.810208692
+"Northwest Mexico","CABO PULMO",10,"Cabo Pulmo","Pesca Prohibida",25.6,13,8,324460.397916667,252297.981854118
+"Northwest Mexico","CABO PULMO",10,"Cabo Pulmo","Pesca Prohibida",45.6,13,8,324460.397916667,252297.981854118
+"Northwest Mexico","ENSENADA",21,"Isla Guadalupe","Amortiguamiento",4528.5,5,3,66865,501702.553095645
+"Northwest Mexico","ENSENADA",13,"Isla San Pedro Mártir","Amortiguamiento",8.3,1,3,66865,500925.321367347
+"Northwest Mexico","ENSENADA",13,"Isla San Pedro Mártir","Amortiguamiento",290.6,1,3,66865,500925.321367347
+"Northwest Mexico","ENSENADA",2,"Islas del Pacifico de la Peninsula de Baja California","Amortiguamiento",12244.1,18,3,66865,500832.793780645
+"Northwest Mexico","ENSENADA",NA,NA,"Sin Proteccion",NA,50,3,66865,500697.70350406
+"Northwest Mexico","GUAYMAS",NA,NA,"Sin Proteccion",NA,36,3,492600,76341.4734019059
+"Northwest Mexico","HERMOSILLO",NA,NA,"Sin Proteccion",NA,3,1,20304,547948.959300858
+"Northwest Mexico","LA PAZ",9,"Balandra","Amortiguamiento",6,1,12,454323.240740741,113189.4978665
+"Northwest Mexico","LA PAZ",9,"Balandra","Amortiguamiento",7.4,1,12,454323.240740741,113189.4978665
+"Northwest Mexico","LA PAZ",8,"Zona marina del Archipiélago de Espíritu Santo","Amortiguamiento",483.1,9,12,454323.240740741,120530.01974487
+"Northwest Mexico","LA PAZ",8,"Zona marina del Archipiélago de Espíritu Santo","Amortiguamiento",6.1,9,12,454323.240740741,120530.01974487
+"Northwest Mexico","LA PAZ",9,"Balandra","Pesca Prohibida",6,2,12,454323.240740741,118463.570308522
+"Northwest Mexico","LA PAZ",9,"Balandra","Pesca Prohibida",7.4,2,12,454323.240740741,118463.570308522
+"Northwest Mexico","LA PAZ",8,"Zona marina del Archipiélago de Espíritu Santo","Pesca Prohibida",6.1,4,12,454323.240740741,125541.930691235
+"Northwest Mexico","LA PAZ",8,"Zona marina del Archipiélago de Espíritu Santo","Pesca Prohibida",483.1,4,12,454323.240740741,125541.930691235
+"Northwest Mexico","LA PAZ",NA,NA,"Sin Proteccion",NA,35,12,454323.240740741,115275.3340353
+"Northwest Mexico","LORETO",7,"Bahía de Loreto","Amortiguamiento",62.4,25,3,243206.666666667,325471.919533021
+"Northwest Mexico","LORETO",7,"Bahía de Loreto","Amortiguamiento",1797.7,25,3,243206.666666667,325471.919533021
+"Northwest Mexico","LORETO",7,"Bahía de Loreto","Pesca Prohibida",62.4,7,3,243206.666666667,325852.604461167
+"Northwest Mexico","LORETO",7,"Bahía de Loreto","Pesca Prohibida",1797.7,7,3,243206.666666667,325852.604461167
+"Northwest Mexico","LORETO",6,"El Vizcaíno","Pesca Prohibida",7174.6,1,3,243206.666666667,324306.071940574
+"Northwest Mexico","LORETO",6,"El Vizcaíno","Pesca Prohibida",9201.6,1,3,243206.666666667,324306.071940574
+"Northwest Mexico","LORETO",NA,NA,"Sin Proteccion",NA,22,3,243206.666666667,324659.3590898
+"Northwest Mexico","LOS CABOS",11,"Cabo San Lucas","Amortiguamiento",40,12,20,808469.828402367,-237024.667360285
+"Northwest Mexico","LOS CABOS",8,"Zona marina del Archipiélago de Espíritu Santo","Pesca Prohibida",6.1,1,20,808469.828402367,-233462.355272253
+"Northwest Mexico","LOS CABOS",8,"Zona marina del Archipiélago de Espíritu Santo","Pesca Prohibida",483.1,1,20,808469.828402367,-233462.355272253
+"Northwest Mexico","LOS CABOS",NA,NA,"Sin Proteccion",NA,19,20,808469.828402367,-239861.368373654
+"Northwest Mexico","PUERTO VALLARTA",24,"Islas Marías","Amortiguamiento",6125.1,1,18,234436.715277778,333076.023329463
+"Northwest Mexico","PUERTO VALLARTA",25,"Islas Marietas","Amortiguamiento",12.8,3,18,234436.715277778,336777.126797548
+"Northwest Mexico","PUERTO VALLARTA",25,"Islas Marietas","Amortiguamiento",0.6,3,18,234436.715277778,336777.126797548
+"Northwest Mexico","PUERTO VALLARTA",NA,NA,"Sin Proteccion",NA,17,18,234436.715277778,336007.991233087
+"Northwest Mexico","TIJUANA",2,"Islas del Pacifico de la Peninsula de Baja California","Amortiguamiento",12244.1,13,2,27336,540902.724287519
+"Yucatan Peninsula","CANCUN",29,"Caribe Mexicano","Amortiguamiento",102.2,4,13,998400,-221254.814883705
+"Yucatan Peninsula","CANCUN",29,"Caribe Mexicano","Amortiguamiento",57380.2,4,13,998400,-221254.814883705
+"Yucatan Peninsula","CANCUN",34,"Costa Occ. de I. Mujeres, Pta. Cancún y Pta. Nizuc","Amortiguamiento",9.8,1,13,998400,-220630.253673466
+"Yucatan Peninsula","CANCUN",34,"Costa Occ. de I. Mujeres, Pta. Cancún y Pta. Nizuc","Amortiguamiento",77.8,1,13,998400,-220630.253673466
+"Yucatan Peninsula","CANCUN",34,"Costa Occ. de I. Mujeres, Pta. Cancún y Pta. Nizuc","Pesca Prohibida",9.8,23,13,998400,-219894.055918401
+"Yucatan Peninsula","CANCUN",34,"Costa Occ. de I. Mujeres, Pta. Cancún y Pta. Nizuc","Pesca Prohibida",77.8,23,13,998400,-219894.055918401
+"Yucatan Peninsula","CANCUN",NA,NA,"Sin Proteccion",NA,5,13,998400,-221407.485401764
+"Yucatan Peninsula","COZUMEL",17,"Arrecifes de Cozumel","Amortiguamiento",69,9,41,841983.487603306,-62455.7171294308
+"Yucatan Peninsula","COZUMEL",17,"Arrecifes de Cozumel","Amortiguamiento",413.1,9,41,841983.487603306,-62455.7171294308
+"Yucatan Peninsula","COZUMEL",29,"Caribe Mexicano","Amortiguamiento",102.2,7,41,841983.487603306,-54590.872259749
+"Yucatan Peninsula","COZUMEL",29,"Caribe Mexicano","Amortiguamiento",57380.2,7,41,841983.487603306,-54590.872259749
+"Yucatan Peninsula","COZUMEL",17,"Arrecifes de Cozumel","Pesca Prohibida",69,33,41,841983.487603306,-53167.8617883989
+"Yucatan Peninsula","COZUMEL",17,"Arrecifes de Cozumel","Pesca Prohibida",413.1,33,41,841983.487603306,-53167.8617883989
+"Yucatan Peninsula","ISLA MUJERES",29,"Caribe Mexicano","Amortiguamiento",57380.2,4,14,104433.132,672295.678976135
+"Yucatan Peninsula","ISLA MUJERES",29,"Caribe Mexicano","Amortiguamiento",102.2,4,14,104433.132,672295.678976135
+"Yucatan Peninsula","ISLA MUJERES",34,"Costa Occ. de I. Mujeres, Pta. Cancún y Pta. Nizuc","Pesca Prohibida",9.8,9,14,104433.132,673459.984442137
+"Yucatan Peninsula","ISLA MUJERES",34,"Costa Occ. de I. Mujeres, Pta. Cancún y Pta. Nizuc","Pesca Prohibida",77.8,9,14,104433.132,673459.984442137
+"Yucatan Peninsula","ISLA MUJERES",NA,NA,"Sin Proteccion",NA,6,14,104433.132,672873.976393024
+"Yucatan Peninsula","MERIDA",15,"Arrecife Alacranes","Pesca Prohibida",2991.4,1,5,100514.4375,675867.395026002
+"Yucatan Peninsula","MERIDA",15,"Arrecife Alacranes","Pesca Prohibida",346.1,1,5,100514.4375,675867.395026002
+"Yucatan Peninsula","MERIDA",NA,NA,"Sin Proteccion",NA,3,5,100514.4375,675589.812265896
+"Yucatan Peninsula","PLAYA DEL CARMEN",29,"Caribe Mexicano","Amortiguamiento",57380.2,31,36,677506.454414427,105304.553006943
+"Yucatan Peninsula","PLAYA DEL CARMEN",29,"Caribe Mexicano","Amortiguamiento",102.2,31,36,677506.454414427,105304.553006943
+"Yucatan Peninsula","PLAYA DEL CARMEN",NA,NA,"Sin Proteccion",NA,4,36,677506.454414427,103524.889343358
+"Yucatan Peninsula","PUERTO MORELOS",16,"Arrecife de Puerto Morelos","Amortiguamiento",68.1,3,10,78441,697663.249765896
+"Yucatan Peninsula","PUERTO MORELOS",16,"Arrecife de Puerto Morelos","Amortiguamiento",13.5,3,10,78441,697663.249765896
+"Yucatan Peninsula","PUERTO MORELOS",16,"Arrecife de Puerto Morelos","Amortiguamiento",8.9,3,10,78441,697663.249765896
