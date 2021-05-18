@@ -334,7 +334,49 @@ ggsave('figs/mpas_buceo_vs_pesca.png', dpi = 300, height = 4, width = 5)
 
 
 
+specie <- c(rep("Pesca", 4) , rep("Buceo" , 4))
+condition <- rep(c("No Especificado" , "Sin Manejo" , "Prohibido", "Permitido"))
 
+data <- data.frame(specie,condition)
+
+data <- data %>% 
+        mutate(value=c(17, 41, 172, 222, 80, 41, 105, 226)) %>% 
+        mutate(condition= factor(condition, levels = c("No Especificado", "Sin Manejo", "Prohibido", "Permitido")))
+
+specie <- rep("AMP's", 2)
+condition <- c("Conflicto", "Sinergia")
+value <- c(247, 100)
+
+specie <- rep("AMP's",2)
+type <- c("Conflicto","Sinergia")
+value <- c(247,100)
+
+con_sin <- data.frame() %>% 
+        mutate(sepcie=)
+# Stacked + percent
+ggplot(data, aes(fill=condition, y=value, x=specie)) + 
+        geom_bar(position="fill", stat="identity", width = 0.5)+
+        coord_flip()+
+        scale_fill_manual(values = c("#edb72f", "gray30", "firebrick", "#558019"), name = "Nivel de Protección") +
+        theme_ipsum() +
+        labs(x = "", y = "Total de Sitios") +
+        theme(strip.text.x = element_text(angle = 0, hjust = .5),
+              legend.position = "bottom",
+              panel.grid.major = element_line(size = 0.5, linetype = 'solid',
+                                              colour = "white"),
+              legend.text=element_text(size=20, colour="black", family="Times New Roman"),
+              axis.title.y = element_text(
+                      face = "bold",
+                      hjust=0.5,
+                      vjust = 0.5,
+                      family = "Times New Roman",
+                      size = 15),
+              legend.title = element_text(face="bold", size = 25,family="Times New Roman"),
+              axis.text.x = element_text(face="bold", family= "Times New Roman",
+                                         size=15, color= "black"),
+              axis.text.y = element_text(family= "Times New Roman", hjust=0.5, color="black",
+                                         size=15),
+              plot.background = element_rect(fill="#c4c4c4", colour="#c4c4c4"))
 
 
 

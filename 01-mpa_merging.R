@@ -4,6 +4,9 @@ library(rnaturalearth)
 library(ggthemes)
 library(patchwork)
 library(hrbrthemes)
+library(RColorBrewer)
+library(lwgeom)
+library(units)
 
 spdf_mx <- st_transform(st_as_sf(ne_countries(country = 'mexico')), crs = 4326)
 
@@ -149,7 +152,6 @@ ggsave('figs/mpas_buceo_vs_pesca.png', dpi = 300, height = 3, width = 8)
 ## Mexico stat by EEZ
 EEZ <- 3269386
 
-library(units)
 
 (p1 <- final_mpa %>% 
         select(ID, Pesca) %>% 
@@ -165,35 +167,84 @@ library(units)
         theme_ipsum() +
         theme(legend.position = ""))
 
-(p1 <- final_mpa %>% 
-                select(ID, Pesca) %>% 
-                mutate(Area = set_units(st_area(.), km^2)) %>% 
-                group_by(Pesca) %>% 
-                summarise(Area = sum(Area)) %>%
-                as.data.frame() %>% 
-                select(-geometry) %>% 
-                mutate(Area_dbl = as.double(Area)) %>% 
-                mutate(Area_perc_eez = (Area_dbl/EEZ)*100) %>%
-                mutate(EEZ = rep("EEZ area", 4)) %>% 
-                filter(Pesca != "No especificado") %>% 
-                ungroup() %>% 
-                mutate(tot_perc = sum(Area_perc_eez)) %>% 
-                add_row(Pesca = "EEZ", Area = NA, Area_dbl = 3269386, Area_perc_eez = 100 - 21.78272, EEZ = "EEZ area", tot_perc = 100) %>% 
-                ggplot(aes(x = EEZ, y = Area_perc_eez, fill = Pesca, label = paste(round(Area_perc_eez, 1), "%"))) +
-                geom_col() +
-                labs(subtitle = "Área totál en AMP: 21.7%") + 
-                geom_text(position = position_stack(vjust = .5)) +
-                scale_fill_manual(values = c("grey90", "gray50", "darkgreen", "pink"), name = " ",  labels = c("EEZ", "Pesca Permitida", "Pesca Prohibida", "Sin manejo")) +
-                labs(x = "", y = "") +
-                theme_ipsum() + 
-                theme(panel.grid.minor = element_blank(),
-                      panel.grid.major = element_blank(),
-                      axis.title = element_blank(),
-                      axis.text.x = element_blank(),
-                      axis.text.y = element_blank(),
-                      legend.position = "bottom"
-                      )
-        )
+area <- final_mpa %>%                 
+        select(ID, Pesca) %>% 
+        mutate(Area = set_units(st_area(.), km^2)) %>% 
+        group_by(Pesca) %>% 
+        summarise(Area = sum(Area)) %>%
+        as.data.frame() %>% 
+        select(-geometry) %>% 
+        mutate(Area_dbl = as.double(Area)) %>% 
+        mutate(Area_perc_eez = (Area_dbl/EEZ)*100) %>%
+        mutate(EEZ = rep("EEZ area", 4)) %>% 
+        filter(Pesca != "No especificado") %>% 
+        ungroup() %>% 
+        mutate(tot_perc = sum(Area_perc_eez)) %>%
+        # mutate(val=c("6","1","3","9")) %>% 
+add_row(Pesca = "No Protegido", Area = NA, Area_dbl = 3269386, Area_perc_eez = 100 - 21.78272, EEZ = "EEZ area", tot_perc = 100)  
+vec <- c("#edb72f","#b22222","#558019","#4d4d4d")
+area <- cbind(area, color=vec)
+
+
+p <- c("#edb72f", "gray30", "firebrick", "#558019")
+treemap::treemap(area,
+                 index="Pesca",
+                 vSize="Area_perc_eez",
+                 vColor="Pesca",
+                 type="index",
+                 # title.legend = "Pesca",
+                 fontsize.labels = 33,
+                 fontcolor.labels = "white",
+                 fontface.labels = 1,
+                 fontfamily.labels = "Times New Roman",
+                 #align.labels = "center",
+                 overlap.labels = 1,
+                 inflate.labels=FALSE,
+                 title = "Área Total: ZEE mexicana",
+                 fontfamily.title = "Times New Roman",
+                 fontsize.title = 36,
+                 border.col=c("black", "white"),
+                 border.lwds=c(5,2),
+                 palette= "Spectral",
+                 mapping=c(1,9),
+                 force.print.labels = FALSE,
+                 xmod.labels = 0,
+                 bg.labels = c("white"),
+                 position.legend = "bottom",
+                 fontfamily.legend = "Times New Roman",
+                 fontsize.legend = 33)
+
+
+tm <- treemap::treemap(area_sub,
+                 index=c("Pesca", "ANP"),
+                 vSize="Area_perc_eez",
+                 type="index",
+                 fontsize.labels = 19,
+                 fontcolor.labels = "#ff5c77",
+                 fontface.labels = 1,
+                 fontfamily.labels = "Times New Roman",
+                 align.labels = list(
+                         c("center","center"),
+                         c("right", "bottom")),
+                 overlap.labels = 1,
+                 inflate.labels=TRUE,
+                 title = "Área Total Protegida",
+                 fontfamily.title = "Verdana",
+                 fontsize.title = 36,
+                 border.col=c("black", "white"),
+                 border.lwds=c(5,2),
+                 palette= "Dark2",
+                 force.print.labels = FALSE,
+                 xmod.labels = 0,
+                 bg.labels = c("white"),
+                 position.legend = "bottom",
+                 fontfamily.legend = "Verdana",
+                 fontsize.legend = 20)    
+inter <- d3Tree::d3tree(tm)
+inter
+plotly::ggplotly(tm)
+
+
 
 ggsave('figs/Total_protected_area.png', dpi = 300, height = 6, width = 4)
 
