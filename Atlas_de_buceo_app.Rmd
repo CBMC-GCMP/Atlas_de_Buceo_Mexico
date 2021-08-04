@@ -13,15 +13,8 @@ resource_files:
 - "shp/MPA_MX_v1.0_01032021/MPA_MX_c1-0.shx" 
 - "shp/MPA_MX_v1.0_01032021/MPA_MX_c1-0.prj" 
 - "shp/MPA_MX_v1.0_01032021/MPA_MX_c1-0.dbf" 
-- "shp/ADVALC/360_shape ADVC vigentes_19FEB.cpg"
-- "shp/ADVALC/360_shape ADVC vigentes_19FEB.dbf"
-- "shp/ADVALC/360_shape ADVC vigentes_19FEB.prj"
-- "shp/ADVALC/360_shape ADVC vigentes_19FEB.sbn"
-- "shp/ADVALC/360_shape ADVC vigentes_19FEB.sbx"
-- "shp/ADVALC/360_shape ADVC vigentes_19FEB.shx"
-- "shp/MPA_MX_v1.01_21072021/MPA_MX_c1-01.shx"
-- "shp/MPA_MX_v1.01_21072021/MPA_MX_c1-01.prj"
-- "shp/MPA_MX_v1.01_21072021/MPA_MX_c1-01.dbf"
+
+
 
 runtime: shiny
 output:
@@ -32,8 +25,8 @@ output:
 <style>                     
 
 .navbar {
-  background-color:#696868;
-  border-color:#696868;
+  background-color:#4f42e3;
+  border-color:#4f42e3;
 }
 
 .navbar-brand  {
@@ -45,12 +38,12 @@ output:
 body {
     background-color: #c9c8c7;
     font-family: "Times New Roman", serif;
-    font-size: 24px;
+    font-size: 18px;
     color:black;
 }
 .chart-title {
     font-family: "Times New Roman", serif;
-    font-size: 27px;
+    font-size: 22px;
     color:black;
 }
 .nav-tabs-custom .nav-tabs li.active a {
@@ -98,7 +91,7 @@ ds <- raster::shapefile("shp/Diving_sites_v1.0_01032021/dive_sites.shp", verbose
 to <- raster::shapefile("shp/Tourism_operators_v1.0_01032021/operators.shp",encoding = "latin1", verbose = FALSE)
 
 # Loading MPA layer -------------------
-mpa <- raster::shapefile("shp/MPA_MX_v1.01_21072021/MPA_MX_c1-01.shp", encoding = "UTF-8", verbose = FALSE)
+mpa <- raster::shapefile("shp/MPA_MX_v1.0_01032021/MPA_MX_c1-0.shp", encoding = "UTF-8", verbose = FALSE)
 
 
 
@@ -241,7 +234,7 @@ leaflet(to) %>%
 
 ```
 
-Protección Pesquera
+Porcentajes de protección
 =======================================================================
 
 ```{r include= FALSE}
@@ -252,11 +245,11 @@ metadata_v1.01[, 23] <- NULL
 
 metadata_v1.01 <- metadata_v1.01 %>% 
         rename(
-                pesca_comercial= Pesca.Comercial,
-                pesca_deportiva= Pesca.Deportiva,
-                Pesca= Pesca,
-                Buceo= Cat_Buceo,
-                PdM= Lo.que.dice.el.PM
+                pesca_comercial = Pesca.Comercial,
+                pesca_deportiva = Pesca.Deportiva,
+                Pesca = Pesca,
+                Buceo = Cat_Buceo,
+                PdM = Lo.que.dice.el.PM
         )
 mpa_v1 <- mpa_v1 %>%
         select(ANP, ID, nombr_1)
@@ -286,7 +279,22 @@ area <- mpa_v1.01 %>%
                 filter(Pesca != "No especificado") %>% 
                 ungroup() %>% 
                 mutate(tot_perc = sum(Area_perc_eez)) %>%
-                add_row(Pesca = "No Protegido", Area = NA, Area_dbl = 3269386, Area_perc_eez = 100 - 21.78272, EEZ = "EEZ area", tot_perc = 100)  
+                add_row(Pesca = "No Protegido", 
+                        Area = NA, 
+                        Area_dbl = 3269386, 
+                        Area_perc_eez = 100 - 21.78272, 
+                        EEZ = "EEZ area", 
+                        tot_perc = 100) %>% 
+                mutate(Pesca = factor(Pesca, 
+                                      levels = c("No Protegido", 
+                                      "Permitida", 
+                                      "Prohibida", 
+                                      "Sin manejo"),
+                                      labels = c("No Protegido", 
+                                                 "Pesca permitida", 
+                                                 "Pesca prohibida", 
+                                                 "Sin Manejo"))) %>% 
+                mutate(label = paste0(Pesca, sep = ":", round(Area_perc_eez, 2), "%"))
 
 
 ```
@@ -295,16 +303,16 @@ area <- mpa_v1.01 %>%
 
 
 renderPlot({treemap::treemap(area,
-                 index="Pesca",
-                 vSize="Area_perc_eez",
-                 type="index",
+                 index = "label",
+                 vSize = "Area_perc_eez",
+                 type = "index",
                  fontsize.labels = 33,
                  fontcolor.labels = "white",
                  fontface.labels = 1,
                  fontfamily.labels = "Times New Roman",
                  #align.labels = "center",
                  overlap.labels = 1,
-                 inflate.labels=FALSE,
+                 inflate.labels = FALSE,
                  title = "Área Total: ZEE mexicana",
                  fontfamily.title = "Times New Roman",
                  fontsize.title = 36,
@@ -320,825 +328,34 @@ renderPlot({treemap::treemap(area,
    })
 ```
 
-Pesca
-=======================================================================
-```{r, include=FALSE}
-mpa_v1 <- st_read("shp/MPA_MX_v1.0_01032021/MPA_MX_c1-0.shp")
 
-metadata_v1.01 <- read.csv("data/MPA_metadata_v.1.01_21072021.csv", na.strings ="")
-metadata_v1.01[, 23] <- NULL
-
-metadata_v1.01 <- metadata_v1.01 %>% 
-        rename(
-                pesca_comercial= Pesca.Comercial,
-                pesca_deportiva= Pesca.Deportiva,
-                Pesca= Pesca,
-                Buceo= Cat_Buceo,
-                PdM= Lo.que.dice.el.PM
-        )
-mpa_v1 <- mpa_v1 %>%
-        select(ANP, ID, nombr_1)
-
-mpa_v1.01 <- merge(mpa_v1, metadata_v1.01, by = c("ID", "ANP"))
-
-mpa_v1.01$Pesca <- replace_na(mpa_v1.01$Pesca, "NA")
-
-mpa_v1.01$Pesca <- factor(mpa_v1.01$Pesca, levels = c("NA", "ND", "NO", "SI"), labels = c("Sin manejo", "No especificado", "Prohibida", "Permitida"))
-
-mpa_v1.01$Buceo <- replace_na(mpa_v1.01$Buceo, "NA")
-
-mpa_v1.01$Buceo <- factor(mpa_v1.01$Buceo, levels = c("NA", "NO SE MENCIONA", "AMBIGUO", "PROHIBIDO", "PERMITIDO"), labels = c("Sin manejo", "No se menciona", "Ambiguo", "Prohibido", "Permitido"))
-
-
-dive_sites <- st_read('shp/dive_sites.shp')
-
-
-
-test <- st_join(dive_sites, mpa_v1.01)
-
-test <- test %>% 
-        mutate(protection_level = ifelse(is.na(ANP), "Sin Protección", "Into MPA"), 
-               core_zone = ifelse(Pesca == "Prohibida", "Pesca Prohibida", "Amortiguamiento"),
-               protection_level = ifelse(is.na(core_zone), "Sin Protección", core_zone)) %>% 
-        select(-core_zone) %>% 
-        mutate(protection_level = factor(protection_level, levels = c("Sin Protección", "Amortiguamiento", "Pesca Prohibida"))) 
-
-
-```
-
-
-Column {.bgcolumn .chart-title}
--------------------------------------
-
-### Pesca 
-
-
-```{r}
-mpa$labels5 <- paste0( "<h3 style= 'background-color:#707070; color: white; text-align: center; font-size: 150%; font-family:Times New Roman'> Sitio </h3>",
-                       "<style='color: black; font-size:120%; text-align_: center; font-family: Times New Roman'> \"", mpa$ANP,"\" </>") %>%
-        lapply(htmltools::HTML)
-
-
-pper <- subset(mpa, Pesca =="Permitida")
-
-pproh <- subset(mpa, Pesca == "Prohibida")
-
-pne <- subset(mpa, Pesca == "No especificado")
-
-psm <- subset(mpa, Pesca == "Sin manejo")
-
-leaflet(to) %>% 
-        addProviderTiles(providers$Esri.WorldImagery, group = "Satélite") %>%
-        addProviderTiles(providers$Esri.WorldTopoMap, group = "Mapa") %>%
-        addProviderTiles(providers$Esri.OceanBasemap, group = "Océano") %>%
-  
-  setView(lat =  21.601093,
-                lng = -100.739661,
-                zoom = 5) %>% 
-
-  addPolygons(
-                data = pper,
-                group = "Permitida",
-                weight = 1,
-                opacity = 1,
-                fillColor = "#558019",
-                fillOpacity = 1,
-                color = "black",
-                highlightOptions = highlightOptions(
-                        color = "white",
-                        weight = 2,
-                        bringToFront = TRUE),
-                                popup= ~labels5 
-  ) %>% 
-  
-  addPolygons(
-                data = pproh,
-                group = "Prohibida",
-                weight = 1,
-                opacity = 1,
-                fillColor = "firebrick",
-                fillOpacity = 1,
-                color = "black",
-
-                highlightOptions = highlightOptions(
-                        color = "white",
-                        weight = 2,
-                        bringToFront = TRUE),
-                                popup= ~labels5 
-  ) %>% 
-  
-  addPolygons(
-                data = pne,
-                group = "No especificado",
-                weight = 1,
-                opacity = 1,
-                fillColor = "fee391",
-                fillOpacity = 1,
-                color = "#edb72f",
-                highlightOptions = highlightOptions(
-                        color = "white",
-                        weight = 2,
-                        bringToFront = TRUE),
-                popup= ~labels5 
-  ) %>%
-  
-  addPolygons(
-                data = psm,
-                group = "Sin manejo",
-                weight = 1,
-                opacity = 1,
-                fillColor = "#636363",
-                fillOpacity = 1,
-                color = "black",
-                highlightOptions = highlightOptions(
-                        color = "white",
-                        weight = 2,
-                        bringToFront = TRUE),
-                popup= ~labels5 
-  ) %>% 
-        
-        # Layers control
-        addLayersControl(
-                baseGroups = c("Satélite", "Mapa", "Ocean"),
-                overlayGroups = c("No especificado", "Sin manejo", "Prohibida", "Permitida"),
-                options = layersControlOptions(collapsed = TRUE)
-        )%>%
-        hideGroup(c( "Prohibida", "No especificado", "Sin manejo")) %>%
-        setView(lat =  21.601093,
-                lng = -100.739661,
-                zoom = 5)
-
-
-        
-
-```
-Column {.tabset} 
--------------------------------------
-
-### Subzonas en AMP
-
-```{r graph_1, fig.height=5, fig.width=7}
-
-
-
-renderPlot({
-  mpa_v1.01 %>%
-    as.data.frame() %>%
-    select(ANP, Pesca, Buceo) %>%
-    group_by(Pesca) %>%
-    count() %>%
-    mutate(Pesca = factor(
-      Pesca,
-      levels = c("No especificado", "Sin manejo", "Prohibida", "Permitida")
-    )) %>%
-    ggplot(aes(
-      x = reorder(Pesca, n),
-      y = n,
-      fill = Pesca
-    )) +
-    geom_col() +
-    scale_fill_manual(values = c("#edb72f", "gray30", "firebrick", "#558019"),
-                      name = "Nivel de Protección") +
-    theme_ipsum() +
-    labs(x = "", y = "Número de subzonas en AMP") +
-    theme(
-      strip.text.x = element_text(angle = 0, hjust = .5),
-      axis.text.x = element_blank(),
-      axis.title.y = element_text(
-        face = "bold",
-        hjust = .5,
-        vjust = 0,
-        family = "Times New Roman",
-        size = 18
-      ),
-      legend.position = "bottom",
-      legend.text = element_text(
-        size = 19,
-        colour = "black",
-        family = "Times New Roman"
-      ),
-      legend.title = element_text(
-        face = "bold",
-        size = 25,
-        family = "Times New Roman"
-      ),
-            panel.grid.major = element_line(
-        size = 0.5,
-        linetype = 'solid',
-        colour = "white"
-      ),
-      plot.background = element_rect(fill = "#c4c4c4", colour =
-                                       "#c4c4c4")
-    )
-})
-
-```   
  
-### Sitios de Pesca
-
-```{r graph_2, fig.height=5, fig.width=7}
-renderPlot({
-  test %>%
-    as.data.frame() %>%
-    select(ANP, Pesca, Buceo) %>%
-    group_by(Pesca) %>%
-    count() %>%
-    filter(!is.na(Pesca)) %>%
-    mutate(Pesca = factor(
-      Pesca,
-      levels = c("No especificado", "Sin manejo", "Prohibida", "Permitida")
-    )) %>%
-    ggplot(aes(
-      x = reorder(Pesca, n),
-      y = n,
-      fill = Pesca
-    )) +
-    geom_col() +
-    scale_fill_manual(values = c("#edb72f", "gray30", "firebrick", "#558019"),
-                      name = "Nivel de Protección") +
-    theme_ipsum() +
-    labs(x = "", y = "Número de sitios de pesca") +
-    theme(
-      strip.text.x = element_text(angle = 0, hjust = .5),
-      axis.text.x = element_blank(),
-      strip.text.y = element_text(angle = 0, vjust = -.5),
-      axis.title.y = element_text(
-        face = "bold",
-        hjust = 0.5,
-        vjust = .5,
-        family = "Times New Roman",
-        size = 18
-      ),
-      legend.position = "bottom",
-      legend.text = element_text(
-        size = 20,
-        colour = "black",
-        family = "Times New Roman"
-      ),
-      legend.title = element_text(
-        face = "bold",
-        size = 25,
-        family = "Times New Roman"
-      ),
-            panel.grid.major = element_line(
-        size = 0.5,
-        linetype = 'solid',
-        colour = "white"
-      ),
-      plot.background = element_rect(fill = "#c4c4c4", colour =
-                                       "#c4c4c4")
-    )
-})
-
-```
-
-
-Buceo
-=======================================================================
-Column 
--------------------------------------
-### Buceo
-
-
-```{r}
-bper <- subset(mpa, Buceo == "Permitido")
-
-bproh <- subset(mpa, Buceo == "Prohibido")
-
-bne <- subset(mpa, Buceo == "No se menciona")
-
-bam <- subset(mpa, Buceo == "Ambiguo")
-
-bsm <- subset(mpa, Buceo == "Sin manejo")
-
-leaflet(to) %>%
-  addProviderTiles(providers$Esri.WorldImagery, group = "Satélite") %>%
-  addProviderTiles(providers$Esri.WorldTopoMap, group = "Mapa") %>%
-  addProviderTiles(providers$Esri.OceanBasemap, group = "Océano") %>%
-  setView(lat =  21.601093,
-          lng = -100.739661,
-          zoom = 5) %>%
-  addPolygons(
-    data = bper,
-    group = "Permitido",
-    weight = 1,
-    opacity = 1,
-    fillColor = "#558019",
-    fillOpacity = 1,
-    color = "black",
-    highlightOptions = highlightOptions(
-      color = "white",
-      weight = 2,
-      bringToFront = TRUE
-    ),
-    popup= ~labels5 
-  ) %>%
-  
-  addPolygons(
-    data = bproh,
-    group = "Prohibido",
-    weight = 1,
-    opacity = 1,
-    fillColor = "firebrick",
-    fillOpacity = 1,
-    color = "black",
-    
-    highlightOptions = highlightOptions(
-      color = "white",
-      weight = 2,
-      bringToFront = TRUE
-    ),
-    popup= ~labels5 
-  ) %>%
-  
-    addPolygons(
-    data = bam,
-    group = "Ambiguo",
-    weight = 1,
-    opacity = 1,
-    fillColor = "#ffff00",
-    fillOpacity = 0.8,
-    color = "black",
-    highlightOptions = highlightOptions(
-      color = "white",
-      weight = 2,
-      bringToFront = TRUE
-    ),
-    popup= ~labels5 
-  ) %>%
-  
-  addPolygons(
-    data = bne,
-    group = "No se menciona",
-    weight = 1,
-    opacity = 1,
-    fillColor = "#6b6b6b",
-    fillOpacity = 0.5,
-    color = "black",
-    highlightOptions = highlightOptions(
-      color = "white",
-      weight = 2,
-      bringToFront = TRUE
-    ),
-    popup= ~labels5 
-  ) %>%
-  
-  addPolygons(
-    data = bsm,
-    group = "Sin manejo",
-    weight = 1,
-    opacity = 1,
-    fillColor = "#e87c10",
-    fillOpacity = 0.9,
-    color = "black",
-    highlightOptions = highlightOptions(
-      color = "white",
-      weight = 2,
-      bringToFront = TRUE
-    ),
-    popup= ~labels5 
-  ) %>%
-  
-  # Layers control
-  addLayersControl(
-    baseGroups = c("Satélite", "Mapa", "Ocean"),
-    overlayGroups = c("Ambiguo", "No se menciona", "Sin manejo", "Prohibido", "Permitido"),
-    options = layersControlOptions(collapsed = TRUE)
-  ) %>%
-  hideGroup(c("Ambiguo", "Prohibida", "No se menciona", "Sin manejo")) %>%
-  setView(lat =  21.601093,
-          lng = -100.739661,
-          zoom = 5)
-
-
-```
-Column {.tabset}
--------------------------------------
-
-### Subzonas en AMP
-
-```{r graph_3, fig.height=5, fig.width=7}
-
-renderPlot({
-  mpa %>%
-    as.data.frame() %>%
-    select(ANP, Pesca, Buceo) %>%
-    group_by(Buceo) %>%
-    count() %>%
-    mutate(Buceo = factor(
-      Buceo,
-      levels = c("No se menciona", "Sin manejo", "Prohibido", "Permitido", "Ambiguo")
-    )) %>%
-    ggplot(aes(
-      x = reorder(Buceo, n),
-      y = n,
-      fill = Buceo
-    )) +
-    geom_col() +
-    scale_fill_manual(values = c("#edb72f", "gray30", "#c91818", "#558019", "#c7c704"),
-                      name = "Nivel de Protección") +
-    theme_ipsum() +
-    labs(x = "", y = "Número de subzonas en AMP") +
-    theme(
-      strip.text.x = element_text(angle = 0, hjust = -.5),
-      strip.text.y = element_text(angle = 0, vjust = -.5),
-      axis.text.x = element_blank(),
-      axis.title.y = element_text(
-        face = "bold",
-        hjust = 0.5,
-        vjust = .5,
-        family = "Times New Roman",
-        size = 18
-      ),
-      legend.position = "bottom",
-      legend.text = element_text(
-        size = 20,
-        colour = "black",
-        family = "Times New Roman"
-      ),
-      legend.title = element_text(
-        face = "bold",
-        size = 25,
-        family = "Times New Roman"
-      ),
-        panel.grid.major = element_line(
-        size = 0.5,
-        linetype = 'solid',
-        colour = "white"
-      ),
-      plot.background = element_rect(fill = "#c4c4c4", colour =
-                                       "#c4c4c4")
-    )
-})
-
-
-
-```   
- 
-### Sitios de Buceo
-```{r graph_4, fig.height=5, fig.width=7}
-renderPlot({
-  test %>%
-    as.data.frame() %>%
-    select(ANP, Buceo, Buceo) %>%
-    group_by(Buceo) %>%
-    count() %>%
-    filter(!is.na(Buceo)) %>%
-    mutate(Buceo = factor(
-      Buceo,
-      levels = c("No se menciona", "Sin manejo", "Prohibido", "Permitido", "Ambiguo")
-    )) %>%
-    ggplot(aes(
-      x = reorder(Buceo, n),
-      y = n,
-      fill = Buceo
-    )) +
-    geom_col() +
-    scale_fill_manual(values = c("#edb72f", "gray30", "#c91818", "#558019", "#c7c704"),
-                      name = "Nivel de Protección") +
-    theme_ipsum() +
-    labs(x = "", y = "Número de sitios de buceo") +
-    theme(
-      strip.text.x = element_text(angle = 0, hjust = .5),
-      axis.text.x = element_blank(),
-      strip.text.y = element_text(angle = 0, vjust = -.5),
-      axis.title.y = element_text(
-        face = "bold",
-        hjust = 0.5,
-        vjust = .5,
-        family = "Times New Roman",
-        size = 18
-      ),
-      legend.position = "bottom",
-      legend.text = element_text(
-        size = 20,
-        colour = "black",
-        family = "Times New Roman"
-      ),
-      legend.title = element_text(
-        face = "bold",
-        size = 25,
-        family = "Times New Roman"
-      ),
-        panel.grid.major = element_line(
-        size = 0.5,
-        linetype = 'solid',
-        colour = "white"
-      ),
-      plot.background = element_rect(fill = "#c4c4c4", colour =
-                                       "#c4c4c4")
-    )
-})
-
-
-```
-
-
-Actividades
-=======================================================================
-Column 
--------------------------------------
-
-### Áreas Marinas Protegidas
-
-```{r include=FALSE}
-
-
-
-
-mpa_v1.01 %>%
-  filter(
-    Pesca %in% c("Permitida", "Sin manejo", "No especificado"),
-    Buceo %in% c("Ambiguo", "No se menciona", "Sin manejo", "Permitido")
-  ) %>%
-  as.data.frame() %>%
-  group_by(Pesca, Buceo) %>%
-  count() %>%
-  ungroup() %>%
-  summarise(n = sum(n))
-
-mpa_v1.01 %>%
-  filter(Pesca == "Prohibida",
-         Buceo %in% c("Ambiguo", "No se menciona", "Sin manejo", "Permitido")) %>%
-  as.data.frame() %>%
-  group_by(Pesca, Buceo) %>%
-  count() %>%
-  ungroup() %>%
-  summarise(n = sum(n))
-
-```
-
-```{r}
-conflicto <- mpa %>%
-subset(
-Pesca %in% c("Permitida", "Sin manejo", "No especificado"),
-Buceo %in% c("Ambiguo", "Sin manejo", "Permitido")
-)
-
-
-sinergia <- mpa %>%
-subset(Pesca == "Prohibida",
-Buceo %in% c("Ambiguo", "Sin manejo", "Permitido")
-)
-
-
-leaflet(to) %>%
-addProviderTiles(providers$Esri.WorldImagery, group = "Satélite") %>%
-addProviderTiles(providers$Esri.WorldTopoMap, group = "Mapa") %>%
-addProviderTiles(providers$Esri.OceanBasemap, group = "Océano") %>%
-
-setView(lat =  21.601093,
-lng = -100.739661,
-zoom = 5) %>%
-
-addPolygons(
-data = sinergia,
-group = "Solo Buceo",
-weight = 1,
-opacity = 1,
-fillColor = "#558019",
-fillOpacity = 1,
-color = "black",
-highlightOptions = highlightOptions(
-color = "white",
-weight = 2,
-bringToFront = TRUE
-)
-) %>%
-
-addPolygons(
-data = conflicto,
-group = "Pesca y Buceo",
-weight = 1,
-opacity = 1,
-fillColor = "firebrick",
-fillOpacity = 1,
-color = "black",
-
-highlightOptions = highlightOptions(
-color = "white",
-weight = 2,
-bringToFront = TRUE
-)
-) %>%
-# Layers control
-addLayersControl(
-baseGroups = c("Satélite", "Mapa", "Ocean"),
-overlayGroups = c("Solo Buceo", "Pesca y Buceo"),
-options = layersControlOptions(collapsed = TRUE)
-) %>%
-hideGroup("Conflicto") %>%
-setView(lat =  21.601093,
-lng = -100.739661,
-zoom = 5)
-
-
-```
-
-
-Column {.tabset}
--------------------------------------
-```{r include=FALSE}
-
-mpa %>% 
-        as.data.frame() %>%
-        filter(Pesca %in% c("Permitida", "Sin manejo", "No especificado"), Buceo %in% c("Ambiguo", "Sin manejo", "Permitido")) %>% 
-        group_by(Pesca, Buceo) %>% 
-        count() %>% 
-        ungroup() %>% 
-        summarise(n=sum(n))
-
-mpa %>% 
-        as.data.frame() %>% 
-        filter(Pesca == "Prohibida", Buceo %in% c("Ambiguo", "Sin manejo", "Permitido")) %>% 
-        group_by(Pesca, Buceo) %>% 
-        count() %>% 
-        ungroup() %>% 
-        summarise(n=sum(n))
-```
-
-### Actividades
-```{r graph_5, fig.height=5, fig.width=7}
-
-
-specie <- rep("AMP's",2)
-category <- c("Pesca y Buceo","Solo Buceo")
-value <- c(212,109)
-actividad <- data.frame(specie, category, value)
-
-
-renderPlot({
-  ggplot(actividad, aes(fill=category, y=value, x=specie)) + 
-        geom_bar(position="fill", stat="identity", width = 0.5)+
-    scale_fill_manual(
-      values = c("firebrick", "#558019", name="Categoría"),
-      aesthetics = c("color", "fill")
-    ) +
-    theme_ipsum() +
-    labs(x = "", y = "Sitios de buceo (%)") +
-    theme(
-      strip.text.x = element_text(angle = 0, hjust = .5),
-      legend.position = "bottom",
-      legend.title = element_text(""),
-      panel.grid.major = element_line(
-        size = 0.5,
-        linetype = 'solid',
-        colour = "white"
-      ),
-      legend.text = element_text(
-        size = 20,
-        colour = "black",
-        family = "Times New Roman"
-      ),
-      axis.title.y = element_text(
-        face = "bold",
-        hjust = 0.5,
-        vjust = .5,
-        family = "Times New Roman",
-        size = 18
-      ),
-      axis.text.x = element_text(
-        face = "bold",
-        family = "Times New Roman",
-        size = 15
-      ),
-      axis.text.y = element_text(
-        family = "Times New Roman",
-        hjust = 0.5,
-        size = 15
-      ),
-      plot.background = element_rect(fill = "#c4c4c4", colour =
-                                       "#c4c4c4")
-    )
-})
-```
-
-<!-- Resumen {.bgcolumn} -->
-<!-- ======================================================================= -->
-
-
-<!-- ```{r graph_6, fig.height=5, fig.width=7} -->
-
-
-<!-- summary <- mpa %>% -->
-<!--   as.data.frame() %>% -->
-<!--   select(ANP, Pesca, Buceo) %>% -->
-<!--   mutate(Buceo = factor( -->
-<!--     Buceo, -->
-<!--     levels = c("Ambiguo", "No se menciona", "Sin manejo", "Prohibido", "Permitido") -->
-<!--   )) %>% -->
-<!--   mutate(Pesca = factor( -->
-<!--     Pesca, -->
-<!--     levels = c("No especificado", "Sin manejo", "Prohibida", "Permitida") -->
-<!--   )) %>% -->
-<!--   filter(!is.na(Buceo)) %>% -->
-<!--   filter(!is.na(Pesca)) -->
-
-<!-- buceo <- summary %>% -->
-<!--   group_by(Buceo) %>% -->
-<!--   summarise(n.Buceo = n()) -->
-
-<!-- pesca <- summary %>% -->
-<!--   group_by(Pesca) %>% -->
-<!--   summarise(n.Pesca = n()) -->
-
-
-<!-- specie <- c(rep("Pesca", 5) , rep("Buceo" , 5)) -->
-<!-- condition <- -->
-<!--   rep(c("Ambiguo","No Especificado" , "Sin Manejo" , "Prohibido", "Permitido")) -->
-
-<!-- data <- data.frame(specie, condition) -->
-
-<!-- data <- data %>% -->
-<!--   mutate(value = c(0,17, 41, 172, 222,66, 80, 41, 105, 226)) %>% -->
-<!--   mutate(condition = factor( -->
-<!--     condition, -->
-<!--     levels = c("No Especificado", "Sin Manejo", "Prohibido", "Permitido") -->
-<!--   )) -->
-
-
-
-
-<!-- renderPlot({ -->
-<!--   ggplot(data, aes(fill = condition, y = value, x = specie)) + -->
-<!--     geom_bar(position = "fill", -->
-<!--              stat = "identity", -->
-<!--              width = 0.5) + -->
-<!--     coord_flip() + -->
-<!--     scale_fill_manual(values = c("#edb72f", "gray30", "firebrick", "#558019"), -->
-<!--                       name = "Nivel de Protección") + -->
-<!--     theme_ipsum() + -->
-<!--     labs(x = "", y = "Total de Sitios") + -->
-<!--     theme( -->
-<!--       strip.text.x = element_text(angle = 0, hjust = .5), -->
-<!--       legend.position = "bottom", -->
-<!--       panel.grid.major = element_line( -->
-<!--         size = 0.5, -->
-<!--         linetype = 'solid', -->
-<!--         colour = "white" -->
-<!--       ), -->
-<!--       legend.text = element_text( -->
-<!--         size = 20, -->
-<!--         colour = "black", -->
-<!--         family = "Times New Roman" -->
-<!--       ), -->
-<!--       axis.title.y = element_text( -->
-<!--         face = "bold", -->
-<!--         hjust = 0.5, -->
-<!--         vjust = 0.5, -->
-<!--         family = "Times New Roman", -->
-<!--         size = 15 -->
-<!--       ), -->
-<!--       legend.title = element_text( -->
-<!--         face = "bold", -->
-<!--         size = 25, -->
-<!--         family = "Times New Roman" -->
-<!--       ), -->
-<!--       axis.text.x = element_text( -->
-<!--         face = "bold", -->
-<!--         family = "Times New Roman", -->
-<!--         size = 15, -->
-<!--         color = "black" -->
-<!--       ), -->
-<!--       axis.text.y = element_text( -->
-<!--         family = "Times New Roman", -->
-<!--         hjust = 0.5, -->
-<!--         color = "black", -->
-<!--         size = 15 -->
-<!--       ), -->
-<!--       plot.background = element_rect(fill = "#c4c4c4", colour = -->
-<!--                                        "#c4c4c4") -->
-<!--     ) -->
-<!-- }) -->
-
-<!-- ``` -->
-
 
 Créditos
 =======================================================================
         
-### Acerca del proyecto
+**Acerca del proyecto**
 
-Este trabajo pertenece a la iniciativa del Atlas de Buceo en México, un proyecto donde instituciones internacionales están colaborando, entre las cuales se incluyen: Scripps Institution of Oceanography (EU), Gulf of California Marine Programa (EU), Centro para la Biodiversidad Marina y la Conservación A.C. (México), Universidad Autónoma de Baja California Sur (México), Senckenberg Institue (Alemania).
+Este trabajo pertenece a la iniciativa del Atlas de Buceo en México, un proyecto donde instituciones internacionales están colaborando, entre las cuales se incluyen: Scripps Institution of Oceanography (EU), Gulf of California Marine Programa (EU), Centro para la Biodiversidad Marina y la Conservación A.C. (México), Universidad Autónoma de Baja California Sur (México), Senckenberg Institute (Alemania).
 
-### Fuente de datos
+**Fuente de datos**
 
 - La capa mexicana de AMP's se encuentra bajo desarrollo; los datos originales se obtuvieron desde: http://sig.conanp.gob.mx/website/pagsig/info_shape.htm
 
-### Interfaz, creación de datos: 
+**Interfaz, creación de datos**: 
 
 - Dr. Fabio Favoretto (UABCS-CBMC);
 - Eduardo León Solórzano (UABCS);
 - Eduardo Peláez Torres (UABCS);
 
-### Creación de datos:
+**Creación de datos**:
 
 - Joy Kumagai (Senckenberg);
 - Terrance Wang (NOAA);
 - Norman Blanco Lupio (CBMC);
 
 
-### Supervisión del proyecto: 
+**Supervisión del proyecto**: 
 
 - Marisol Placencia de la Cruz (CBMC); 
 - Octavio Aburto Oropeza (SIO); 
